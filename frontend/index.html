@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KNOCK: The Door I Knock On</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="art-shell">
+      <section class="intro" aria-labelledby="page-title">
+        <div class="year-mark">1973 / farewell / threshold</div>
+        <h1 id="page-title">KNOCK: The Door I Knock On</h1>
+        <p>
+          An interactive AI artwork that turns a personal goodbye into a symbolic door,
+          shaped by western dust, anti-war memory, silence, and the search for meaning.
+        </p>
+      </section>
+
+      <section class="door-panel" aria-labelledby="form-title">
+        <div class="door-arch" aria-hidden="true">
+          <span></span>
+        </div>
+
+        <form id="knock-form" class="question-form">
+          <h2 id="form-title">Design Your Door</h2>
+
+          <label for="leave-behind">What is something you had to leave behind?</label>
+          <textarea
+            id="leave-behind"
+            name="leave_behind"
+            rows="4"
+            maxlength="1200"
+            required
+          ></textarea>
+
+          <label for="threshold">What kind of threshold are you standing before now?</label>
+          <textarea
+            id="threshold"
+            name="threshold"
+            rows="4"
+            maxlength="1200"
+            required
+          ></textarea>
+
+          <label for="hope-to-hear">If you knocked on heaven's door, what would you hope to hear?</label>
+          <textarea
+            id="hope-to-hear"
+            name="hope_to_hear"
+            rows="4"
+            maxlength="1200"
+            required
+          ></textarea>
+
+          <button id="submit-button" type="submit">
+            <span class="button-text">Design My Door</span>
+            <span class="loader" aria-hidden="true"></span>
+          </button>
+
+          <p id="status-line" class="status-line" role="status"></p>
+        </form>
+      </section>
+
+      <section id="result-section" class="results hidden" aria-live="polite">
+        <div class="result-heading">
+          <p class="small-label">Generated door</p>
+          <h2>Your Threshold Manifesto</h2>
+        </div>
+
+        <div class="result-grid">
+          <article class="result-block emotion-block">
+            <span class="small-label">Emotional tone</span>
+            <h3 id="emotion-title"></h3>
+            <p id="emotion-description"></p>
+          </article>
+
+          <article class="result-block motif-block">
+            <span class="small-label">Symbolic motifs</span>
+            <ul id="motif-list" class="motif-list"></ul>
+          </article>
+
+          <article class="result-block lens-block">
+            <span class="small-label">Historical lenses</span>
+            <ul id="lens-list" class="lens-list"></ul>
+          </article>
+
+          <article class="result-block image-block hidden" id="image-block">
+            <span class="small-label">AI image</span>
+            <img id="generated-image" alt="Generated symbolic door artwork" />
+          </article>
+
+          <article class="result-block manifesto-block">
+            <span class="small-label">Poetic text</span>
+            <p id="manifesto-text"></p>
+          </article>
+
+          <article class="result-block prompt-block">
+            <span class="small-label">Symbolic image prompt</span>
+            <p id="image-prompt"></p>
+          </article>
+
+          <article class="result-block history-block">
+            <span class="small-label">Historical influence</span>
+            <p id="historical-influence"></p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
