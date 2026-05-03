@@ -207,9 +207,9 @@ def _generate_locally(
     selected_lenses: List[Dict[str, object]],
     motifs: List[Motif],
 ) -> Dict[str, str]:
-    leave = _clean_fragment(user_input.leave_behind)
-    threshold = _clean_fragment(user_input.threshold)
-    hope = _clean_fragment(user_input.hope_to_hear)
+    leave = _prepare_leave_fragment(user_input.leave_behind)
+    threshold = _prepare_threshold_fragment(user_input.threshold)
+    hope = _prepare_hope_fragment(user_input.hope_to_hear)
     tone = emotion.dominant_emotion
     tone_profile = TONE_PROFILES.get(tone, TONE_PROFILES["conflicted"])
     lens_phrase = _lens_phrase(selected_lenses)
@@ -261,6 +261,33 @@ def _clean_fragment(text: str) -> str:
     if len(cleaned) > 260:
         return cleaned[:257].rstrip() + "..."
     return cleaned
+
+
+def _strip_terminal_punctuation(text: str) -> str:
+    return text.rstrip(" .!?;:")
+
+
+def _prepare_leave_fragment(text: str) -> str:
+    cleaned = _clean_fragment(text)
+    cleaned = re.sub(r"^i had to leave behind\s+", "", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"^i left behind\s+", "", cleaned, flags=re.IGNORECASE)
+    return _strip_terminal_punctuation(cleaned)
+
+
+def _prepare_threshold_fragment(text: str) -> str:
+    cleaned = _clean_fragment(text)
+    cleaned = re.sub(r"^i am standing before\s+", "", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"^i am standing at\s+", "", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"^i stand before\s+", "", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"^i stand at\s+", "", cleaned, flags=re.IGNORECASE)
+    return _strip_terminal_punctuation(cleaned)
+
+
+def _prepare_hope_fragment(text: str) -> str:
+    cleaned = _clean_fragment(text)
+    cleaned = re.sub(r"^i would hope to hear\s+", "", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"^i hope to hear\s+", "", cleaned, flags=re.IGNORECASE)
+    return _strip_terminal_punctuation(cleaned)
 
 
 TONE_PROFILES = {

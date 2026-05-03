@@ -1,10 +1,10 @@
-# Artist Manifesto Draft
+# Artist Manifesto
 
 ## 1. Why This Medium?
 
 I chose an interactive web artwork because the idea of a door is not only something to look at. A door asks for action. It waits for a hand, a pause, a decision, and sometimes a small amount of courage. A static poster could show a beautiful door, but it would not let the viewer bring their own threshold into the work. By using a website, I can invite the user to answer questions and make the door personal.
 
-The medium also fits the subject of artificial intelligence. AI is often shown as something fast, efficient, and technical. I wanted to use it in a slower way. The user writes about something they left behind, the threshold they face now, and what they hope to hear if they knocked on a final or sacred door. The system does not give advice. It listens, reads the tone, and creates a poetic response. The screen becomes a place between confession, archive, and image.
+The medium also fits the subject of artificial intelligence. AI is often shown as something fast, efficient, and technical. I wanted to use it in a slower way. The user writes about something they left behind, the threshold they face now, and what they hope to hear if they knocked on a final or sacred door. The system does not give advice. It listens, reads the tone, and creates a poetic response. The screen becomes a place between confession, archive, and image. That slowness matters to me because the song itself does not rush its feeling. It lingers in a narrow space between fear and release.
 
 This medium lets text, history, and visual imagination meet in one experience. The backend works like a hidden studio. The frontend works like the door itself.
 
@@ -60,6 +60,6 @@ Every result is saved as a timestamped JSON file, which makes the process transp
 
 KNOCK attempts to make AI feel reflective instead of impressive. The project uses several AI and NLP techniques: emotion analysis, context retrieval, symbolic motif extraction, contextual language generation, and image prompt or image generation. But the main point is the experience of turning a personal threshold into a symbolic door.
 
-The project is inspired by a song, a film, and a historical moment, but it does not try to copy them. It uses their atmosphere: farewell, mortality, western dust, protest, silence, and the need to find meaning when one world is ending. The user brings the final missing part. Their answers decide what the door carries.
+The project is inspired by a song, a film, and a historical moment, but it does not try to copy them. It uses their atmosphere: farewell, mortality, western dust, protest, silence, and the need to find meaning when one world is ending. The user brings the final missing part. Their answers decide what the door carries. In that sense, each run of the project becomes a different door, but the emotional and historical frame stays recognizable.
 
 For me, this is why the web medium works well. The user does not only observe the artwork. They knock. The system answers with text, image, and context. The result is not a final truth, but a moment of attention. It asks what we leave behind, what we face now, and what voice we hope might meet us.
