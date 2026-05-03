@@ -42,6 +42,21 @@ OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 app.mount("/outputs", StaticFiles(directory=OUTPUTS_DIR), name="outputs")
 
 
+@app.get("/")
+def root() -> dict[str, object]:
+    return {
+        "project": "KNOCK: The Door I Knock On",
+        "message": (
+            "The backend is running. Open the frontend at http://127.0.0.1:5500 "
+            "and use /api/health or /api/generate for API access."
+        ),
+        "frontend_url": "http://127.0.0.1:5500",
+        "health_url": "/api/health",
+        "generate_url": "/api/generate",
+        "text_provider": _configured_text_provider(),
+    }
+
+
 @app.get("/api/health", response_model=HealthResponse)
 def health() -> HealthResponse:
     has_openai = bool(os.getenv("OPENAI_API_KEY"))

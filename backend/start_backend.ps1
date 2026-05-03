@@ -1,5 +1,5 @@
 param(
-  [int]$Port = 8010,
+  [Nullable[int]]$Port = $null,
   [switch]$Reload
 )
 
@@ -8,7 +8,6 @@ $ProjectBackend = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $ProjectBackend
 
 Write-Host "KNOCK backend starter"
-Write-Host "Port: $Port"
 
 $existingUvicorn = Get-CimInstance Win32_Process -Filter "name = 'python.exe'" |
   Where-Object {
@@ -21,7 +20,8 @@ foreach ($proc in $existingUvicorn) {
   Stop-Process -Id $proc.ProcessId -Force -ErrorAction SilentlyContinue
 }
 
-$portsToClear = @($Port, 8000) | Select-Object -Unique
+$candidatePorts = if ($Port) { @($Port) } else { @(8000, 8010) }
+$portsToClear = $candidatePorts | Select-Object -Unique
 $portConnections = foreach ($portToClear in $portsToClear) {
   Get-NetTCPConnection -LocalPort $portToClear -ErrorAction SilentlyContinue
 }
@@ -39,6 +39,22 @@ foreach ($connection in $portConnections) {
   }
 }
 
+if (-not $Port) {
+  foreach ($candidate in $candidatePorts) {
+    $inUse = Get-NetTCPConnection -LocalPort $candidate -ErrorAction SilentlyContinue
+    if (-not $inUse) {
+      $Port = $candidate
+      break
+    }
+  }
+
+  if (-not $Port) {
+    throw "Ports 8000 and 8010 are both in use by other processes. Run .\\stop_backend.ps1 or choose a free port with -Port."
+  }
+}
+
+Write-Host "Port: $Port"
+
 if (-not (Test-Path ".\.venv\Scripts\python.exe")) {
   Write-Host "Creating virtual environment..."
   python -m venv .venv
@@ -53,5 +69,6 @@ if ($Reload) {
 }
 
 Write-Host "Starting backend at http://127.0.0.1:$Port"
+Write-Host "Frontend should open at http://127.0.0.1:5500"
 Write-Host "Press Ctrl+C to stop."
 & .\.venv\Scripts\python.exe @uvicornArgs

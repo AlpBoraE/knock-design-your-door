@@ -26,6 +26,8 @@ Third, AI is a mirror. The emotional tone detection is not a perfect truth about
 
 The fallback generator is also important. If there is no API key, the project still works. This keeps the artwork accessible and honest. The AI parts are stronger with a language model and image model, but the concept does not disappear without them.
 
+I think this matters for a course project as well. It is easy to use AI in a decorative way and claim that the result is deep just because it sounds poetic or looks cinematic. I wanted to avoid that trap. My goal was to build a system where each AI component had a clear role and where I could explain why it was there. The sentiment module is there to listen for emotional direction. The context retrieval is there to stop the historical material from becoming random wallpaper. The motif extractor is there to show how a user’s own words become symbols. The language model, when used, is there to connect these layers into a reflective whole. This structure helped me feel that I was not hiding behind AI. I was using it deliberately.
+
 ## 4. Historical Context: 1973, War, and Farewell
 
 The historical context gives the project weight. Bob Dylan's 1973 connection to Pat Garrett & Billy the Kid places the song's atmosphere inside a western story about aging, death, friendship, and the end of a mythic world. The film is not just a cowboy story for this project. It becomes a landscape of transition. Pat Garrett represents law, compromise, and survival. Billy the Kid represents youth, rebellion, and legend. Their conflict feels like a door between two eras.
@@ -46,6 +48,8 @@ The questions in the project are designed to make that door personal. "What did 
 
 The door belongs to the user, but it is also connected to history. This is why the result includes both personal language and cultural images from 1973.
 
+I also realized while building the project that the door is not only about death, even though the song carries mortality very strongly. The door can also mean adulthood, leaving a family role, speaking after a long silence, or accepting that uncertainty will not disappear before action begins. That made the project more meaningful to me. It allowed me to treat the phrase "knocking on heaven’s door" not only as an image of finality, but also as an image of vulnerability. To knock is to admit that you do not fully control what happens next. That emotional honesty is part of what I wanted the work to preserve.
+
 ## 6. Technical and Creative Process
 
 The technical process is simple enough to explain in a student presentation. The frontend is built with HTML, CSS, and vanilla JavaScript. The visual style uses a dark cinematic background, warm sunset tones, and a door-shaped panel, so the interface feels like part of the artwork.
@@ -55,6 +59,8 @@ The backend is built with FastAPI. When the user submits answers, the backend co
 After that, the generator creates a structured prompt for the language model. If a Gemini or OpenAI API key is available, it asks the model to write the manifesto, image prompt, and historical influence explanation. If the key is missing or the API call fails, a local fallback generator creates meaningful output from templates. The image generator is also optional. It can create and save an image if OpenAI image generation is available. If not, the app still shows the image prompt.
 
 Every result is saved as a timestamped JSON file, which makes the process transparent.
+
+That transparency became more important to me over time. I did not want the project to feel like a black box that magically outputs emotion and philosophy. Saving outputs, showing motifs, and showing historical lenses are small design choices, but they support trust. They let a reviewer see that the system is making traceable decisions. They also help me defend the project as original work, because the pipeline is visible and explainable instead of hidden behind a single API call.
 
 ## 7. Conclusion
 

@@ -39,11 +39,11 @@ Recommended:
 .\start_backend.ps1
 ```
 
-The starter script uses port `8010` and stops old `uvicorn` processes before starting a new one.
+The starter script stops old `uvicorn` processes before starting a new one, uses port `8000` when it is free, and falls back to `8010` only when needed.
 
-Why `8010`?
+Why mention `8010`?
 
-The normal FastAPI/Uvicorn default is `8000`, and the backend supports it. This project uses `8010` in the starter script because Windows reload processes previously left `8000` occupied. To use `8000` instead:
+The normal FastAPI/Uvicorn default is `8000`, and the backend still supports it. This project mentions `8010` because Windows reload processes can leave `8000` occupied. The starter script handles that automatically. To force `8000`:
 
 ```powershell
 .\start_backend.ps1 -Port 8000
@@ -64,8 +64,12 @@ uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 Open:
 
 ```text
-http://localhost:8010/api/health
+http://localhost:8000/api/health
 ```
+
+If the starter script falls back to `8010`, use `http://localhost:8010/api/health` instead. The selected port is printed in the terminal at startup.
+
+If you open `http://localhost:8000/` or `http://localhost:8010/` directly, the backend now returns a short JSON status message instead of `404 Not Found`.
 
 Verify the local pipeline:
 

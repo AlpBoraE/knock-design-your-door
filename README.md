@@ -139,17 +139,19 @@ cd backend
 .\start_backend.ps1
 ```
 
-This script uses port `8010` by default, stops old KNOCK `uvicorn` processes first, installs missing dependencies, and then starts the backend.
+This script is the safest reviewer path. It stops old KNOCK `uvicorn` processes, installs missing dependencies, and starts the backend on `8000` if it is free. If `8000` is busy, it automatically falls back to `8010`.
 
-Why `8010` instead of `8000`?
+Why mention `8010` instead of only `8000`?
 
-FastAPI/Uvicorn normally uses `8000`, and the project can still run there. On Windows, however, `uvicorn --reload` can leave old child processes behind, which caused repeated `8000 already in use` errors on this machine. For that reason, the recommended script uses `8010` as the stable project port.
+FastAPI/Uvicorn normally uses `8000`, and the project still supports it. On Windows, however, `uvicorn --reload` can leave old child processes behind, which may cause `8000 already in use`. The starter script handles that automatically and only uses `8010` when needed.
 
-Backend URL:
+Backend URL after the starter script:
 
 ```text
-http://localhost:8010
+http://localhost:8000 or http://localhost:8010
 ```
+
+The script prints the exact port it selected, so the reviewer can follow the terminal output without guessing.
 
 If you specifically want the classic FastAPI assignment port `8000`, run:
 
@@ -178,6 +180,8 @@ Manual command, if needed:
 uvicorn app.main:app --host 127.0.0.1 --port 8010
 ```
 
+If the backend root URL is opened directly in a browser, it now returns a short JSON message that points the reviewer to the frontend and API endpoints instead of showing a confusing `404 Not Found`.
+
 To stop old backend processes:
 
 ```powershell
@@ -187,8 +191,10 @@ To stop old backend processes:
 Health check:
 
 ```text
-http://localhost:8010/api/health
+http://localhost:8000/api/health
 ```
+
+If the starter script fell back to `8010`, use `http://localhost:8010/api/health` instead.
 
 Verify the local AI/NLP pipeline without opening the frontend:
 
@@ -212,12 +218,12 @@ Open:
 http://localhost:5500
 ```
 
-The frontend automatically tries backend ports `8010`, `8000`, and `8001`, so you do not need to edit JavaScript if the backend port changes among those.
+The frontend automatically tries backend ports `8000`, `8010`, and `8001`, so you do not need to edit JavaScript if the backend port changes among those.
 
 Port summary:
 
-- Recommended stable backend port: `8010`
-- Classic/default FastAPI port: `8000`
+- Preferred backend port: `8000`
+- Automatic fallback backend port: `8010`
 - Frontend port: `5500`
 
 ## Environment Variables
